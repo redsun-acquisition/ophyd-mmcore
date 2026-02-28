@@ -29,19 +29,14 @@ include = [
 
 [dependency-groups]
 dev = [
-    "mypy>=1.19.1",
+    "pyright>=1.1.408",
     "ruff>=0.15.4",
 ]
 
-[tool.mypy]
-files = "src/ophyd_mmcore"
-pretty = true
-python_version = "3.11"
-
-# Use strict defaults
-strict = true
-warn_unreachable = true
-warn_no_return = true
+[tool.pyright]
+include = ["src/ophyd_mmcore"]
+pythonVersion = "3.11"
+typeCheckingMode = "standard"
 
 [tool.ruff]
 fix = true
