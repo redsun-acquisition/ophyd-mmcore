@@ -19,24 +19,24 @@ if TYPE_CHECKING:
 
 
 class MMPropertyBackend(SignalBackend[PrimitiveT]):
-    """ophyd-async ``SignalBackend`` for a single Micro-Manager device property.
+    """ophyd-async `SignalBackend` for a single Micro-Manager device property.
 
     Micro-Manager properties are always one of ``str``, ``float``, or ``int``
-    (i.e. :data:`~ophyd_async.core.Primitive`), so this backend is typed over
-    ``PrimitiveT`` rather than the full ``SignalDatatypeT``.
+    (i.e. [`data`][ophyd_async.core.Primitive]), so this backend is typed over
+    `PrimitiveT` rather than the full `SignalDatatypeT`.
 
     Parameters
     ----------
-    device_label:
-        The MM device label (e.g. ``"Camera"``).
-    property_name:
-        The MM property name (e.g. ``"Exposure"``).
-    worker:
-        The shared ``MMCoreWorker``.  Inject one instance per application so
+    device_label: str
+        The MM device label.
+    property_name: str
+        The MM property name.
+    worker: MMCoreWorker
+        The shared `MMCoreWorker`.  Inject one instance per application so
         that all backends serialise through the same thread.
-    datatype:
-        The Python type for signal values.  Inferred from ``PropertyType`` if
-        not given (falls back to ``str`` for undefined properties).
+    datatype: type[PrimitiveT] | None
+        The Python type for signal values.  Inferred from `PropertyType` if
+        not given (falls back to `str` for undefined properties).
     """
 
     def __init__(
