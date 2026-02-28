@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [project]
@@ -11,7 +11,10 @@ authors = [
     { name = "Jacopo Abramo", email = "jacopo.abramo@gmail.com" }
 ]
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "ophyd-async>=0.16",
+    "pymmcore-plus>=0.17.3",
+]
 
 [tool.hatch.version]
 source = "vcs"
@@ -23,3 +26,37 @@ packages = ["src/ophyd_mmcore"]
 include = [
   "src/ophyd_mmcore/**",
 ]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.19.1",
+    "ruff>=0.15.4",
+]
+
+[tool.mypy]
+files = "src/ophyd_mmcore"
+pretty = true
+python_version = "3.11"
+
+# Use strict defaults
+strict = true
+warn_unreachable = true
+warn_no_return = true
+
+[tool.ruff]
+fix = true
+
+[tool.ruff.lint]
+extend-select = [
+    "D", # enable docstring checks
+    "I", # enable imports checks
+    "TC", # enable type check imports
+    "FA102", # force __future__ imports
+]
+ignore = ["D100","D104"] # https://docs.astral.sh/ruff/rules/undocumented-public-package/
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
